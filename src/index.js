@@ -1,5 +1,10 @@
 import Phaser from "phaser";
-import logoImg from "./assets/logo.png";
+import PuzzleGrid from "./puzzle-grid";
+import Heart from "./heart";
+import Flower from "./flower";
+
+import heartImage from "./assets/heart.png";
+import flowerImage from "./assets/flower.png";
 
 const config = {
   type: Phaser.AUTO,
@@ -15,18 +20,35 @@ const config = {
 const game = new Phaser.Game(config);
 
 function preload() {
-  this.load.image("logo", logoImg);
+  this.load.spritesheet("heart", heartImage, {frameWidth: 64, frameHeight: 64});
+  this.load.spritesheet("flower", flowerImage, {frameWidth: 64, frameHeight: 64});
 }
 
-function create() {
-  const logo = this.add.image(400, 150, "logo");
 
-  this.tweens.add({
-    targets: logo,
-    y: 450,
-    duration: 2000,
-    ease: "Power2",
-    yoyo: true,
-    loop: -1
+const hearts = [...Array(4)].map((_, i) => ({
+  type: 'heart',
+  xn: i,
+  yn: i,
+  direction: i
+}));
+
+const flowers = [...Array(3)]
+  .flatMap((_, i) => [[i, i + 1], [i + 1, i]])
+  .map(([xn, yn]) => ({
+    type: 'flower',
+    xn,
+    yn
+  }));
+
+function create() {
+  const grid = new PuzzleGrid({
+    scene: this,
+    x: 100,
+    y: 100,
+    cellSize: 64
   });
+  grid.on("test", () => {console.log('ololo')});
+  grid.load([...hearts, ...flowers]);
+  this.add.existing(grid);
+  window.grid = grid;
 }
