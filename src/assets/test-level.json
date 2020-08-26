@@ -1,0 +1,60 @@
+{
+	"elements": [
+		{
+			"type": "heart",
+			"xn": 0,
+			"yn": 0,
+			"direction": 0
+		},
+		{
+			"type": "heart",
+			"xn": 2,
+			"yn": 0,
+			"direction": 1
+		},
+		{
+			"type": "heart",
+			"xn": 4,
+			"yn": 0,
+			"direction": 0
+		},
+		{
+			"type": "heart",
+			"xn": 0,
+			"yn": 1,
+			"direction": 2
+		},
+		{
+			"type": "heart",
+			"xn": 2,
+			"yn": 1,
+			"direction": 2
+		},
+		{
+			"type": "heart",
+			"xn": 4,
+			"yn": 1,
+			"direction": 2
+		},
+		{
+			"type": "flower",
+			"xn": 1,
+			"yn": 0
+		},
+		{
+			"type": "flower",
+			"xn": 3,
+			"yn": 0
+		},
+		{
+			"type": "flower",
+			"xn": 1,
+			"yn": 1
+		},
+		{
+			"type": "flower",
+			"xn": 3,
+			"yn": 1
+		}
+	]
+}

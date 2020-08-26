@@ -1,15 +1,15 @@
-import Phaser from "phaser";
-import PuzzleGrid from "./puzzle-grid";
-import GridController from "./grid-controller";
-import Heart from "./heart";
-import Flower from "./flower";
+import Phaser from 'phaser';
+import PuzzleGrid from './puzzle-grid';
+import GridController from './grid-controller';
+import Heart from './heart';
+import Flower from './flower';
 
-import heartImage from "./assets/heart.png";
-import flowerImage from "./assets/flower.png";
+import heartImage from './assets/heart.png';
+import flowerImage from './assets/flower.png';
 
 const config = {
   type: Phaser.AUTO,
-  parent: "phaser-example",
+  parent: 'phaser-example',
   width: 800,
   height: 600,
   scene: {
@@ -21,25 +21,11 @@ const config = {
 const game = new Phaser.Game(config);
 
 function preload() {
-  this.load.spritesheet("heart", heartImage, {frameWidth: 64, frameHeight: 64});
-  this.load.spritesheet("flower", flowerImage, {frameWidth: 64, frameHeight: 64});
+  this.load.spritesheet('heart', heartImage, {frameWidth: 64, frameHeight: 64});
+  this.load.spritesheet('flower', flowerImage, {frameWidth: 64, frameHeight: 64});
+  this.load.json('test-level', 'src/assets/test-level.json');
 }
 
-
-const hearts = [...Array(4)].map((_, i) => ({
-  type: 'heart',
-  xn: i,
-  yn: i,
-  direction: i
-}));
-
-const flowers = [...Array(3)]
-  .flatMap((_, i) => [[i, i + 1], [i + 1, i]])
-  .map(([xn, yn]) => ({
-    type: 'flower',
-    xn,
-    yn
-  }));
 
 function create() {
   const grid = new PuzzleGrid({
@@ -48,8 +34,7 @@ function create() {
     y: 100,
     cellSize: 64
   });
-  grid.on("test", () => {console.log('ololo')});
-  grid.load([...hearts, ...flowers]);
+  grid.load(this.cache.json.get('test-level').elements);
   this.add.existing(grid);
   
   const controller = new GridController(grid);

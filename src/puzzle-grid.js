@@ -44,8 +44,14 @@ class PuzzleGrid extends Phaser.GameObjects.Container{
 		element.destroy();
 		this.createElement({xn, yn, ...newData});
 	}
+	doWhere(action, criteria){
+		this.getAll().filter(criteria).forEach(it => {
+			action(it);
+			//console.log(it);
+		});
+	}
 	disableWhere(criteria){
-		this.getAll().filter(criteria).forEach(it => it.disable());
+		this.doWhere(it => it.disable(), criteria);
 	}
 	enableAll(){
 		this.getAll().forEach(it => it.enable());
