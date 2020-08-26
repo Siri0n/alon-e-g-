@@ -24,14 +24,15 @@ class PuzzleElement extends Phaser.GameObjects.Sprite{
 		this.y = value * this.s;
 	}
 	disable(){
-		if(this.input.enabled){
+		if(this.input?.enabled){
 			this.setData('wasInteractive', true);
 			this.disableInteractive();
 		}
 		this.alpha = ALPHA_DISABLED;
 	}
 	enable(){
-		if(this.data.wasInteractive){
+		console.log(this.data);
+		if(this.data?.values.wasInteractive){
 			this.toggleData('wasInteractive');
 			this.setInteractive();
 		}

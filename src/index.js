@@ -1,5 +1,6 @@
 import Phaser from "phaser";
 import PuzzleGrid from "./puzzle-grid";
+import GridController from "./grid-controller";
 import Heart from "./heart";
 import Flower from "./flower";
 
@@ -50,5 +51,6 @@ function create() {
   grid.on("test", () => {console.log('ololo')});
   grid.load([...hearts, ...flowers]);
   this.add.existing(grid);
-  window.grid = grid;
+  
+  const controller = new GridController(grid);
 }

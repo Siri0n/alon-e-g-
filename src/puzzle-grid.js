@@ -1,7 +1,7 @@
 import Phaser from "phaser";
 import Class from "phaser/src/utils/Class"
 
-const wrapListener(f, self){
+const wrapListener = (f, self) => {
 	f = f.bind(self)
 	return function(...args){
 		f(this, ...args);
@@ -20,7 +20,7 @@ class PuzzleGrid extends Phaser.GameObjects.Container{
 		}
 		this.elementConfig = {};
 
-		this.onClick = wrapListener(this.onClick);
+		this.onClick = wrapListener(this.onClick, this);
 	}
 	load(data){
 		this.removeAll(true);
@@ -44,11 +44,17 @@ class PuzzleGrid extends Phaser.GameObjects.Container{
 		element.destroy();
 		this.createElement({xn, yn, ...newData});
 	}
+	disableWhere(criteria){
+		this.getAll().filter(criteria).forEach(it => it.disable());
+	}
+	enableAll(){
+		this.getAll().forEach(it => it.enable());
+	}
 	onClick(target){
-
+		this.emit("click", target);
 	}
 }
 
-Class.mixin(PuzzleGrid, Phaser.Events.EventEmitter);
+//Class.mixin(PuzzleGrid, Phaser.Events.EventEmitter);
 
 export default PuzzleGrid;
