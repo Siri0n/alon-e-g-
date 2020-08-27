@@ -1,0 +1,14 @@
+{
+	"elements": [
+		{"type": "flower", "xn": 1, "yn": 0},
+		{"type": "flower", "xn": 0, "yn": 1},
+		{"type": "flower", "xn": 0, "yn": 2},
+		{"type": "flower", "xn": 1, "yn": 3},
+		{"type": "flower", "xn": 2, "yn": 4},
+		{"type": "flower", "xn": 3, "yn": 3},
+		{"type": "flower", "xn": 4, "yn": 2},
+		{"type": "flower", "xn": 4, "yn": 1},
+		{"type": "flower", "xn": 3, "yn": 0},
+		{"type": "flower", "xn": 2, "yn": 1}
+	]
+}

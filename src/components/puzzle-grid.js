@@ -1,5 +1,4 @@
 import Phaser from "phaser";
-import Class from "phaser/src/utils/Class"
 
 const wrapListener = (f, self) => {
 	f = f.bind(self)
@@ -15,9 +14,6 @@ class PuzzleGrid extends Phaser.GameObjects.Container{
 
 		const {cellSize} = config;
 		this.s = cellSize;
-		this.groups = {
-			heart: scene.add.group()
-		}
 		this.elementConfig = {};
 
 		this.onClick = wrapListener(this.onClick, this);
@@ -36,31 +32,31 @@ class PuzzleGrid extends Phaser.GameObjects.Container{
 		});
 		this.add(element);
 		element.on("pointerdown", this.onClick);
-		const group = this.groups[type]; 
-		group && group.add(element);
 	}
 	replaceElement(element, newData){
 		const {xn, yn} = element;
 		element.destroy();
 		this.createElement({xn, yn, ...newData});
 	}
-	doWhere(action, criteria){
-		this.getAll().filter(criteria).forEach(it => {
-			action(it);
-			//console.log(it);
-		});
+	doWhere(criteria, action){
+		return Promise.all(
+			this.getAll()
+				.filter(criteria)
+				.map(action)
+		);
 	}
 	disableWhere(criteria){
-		this.doWhere(it => it.disable(), criteria);
+		this.doWhere(criteria, it => it.disable());
 	}
 	enableAll(){
 		this.getAll().forEach(it => it.enable());
+	}
+	checkWin(){
+		return !this.getAll().some(it => it.type == 'heart');
 	}
 	onClick(target){
 		this.emit("click", target);
 	}
 }
-
-//Class.mixin(PuzzleGrid, Phaser.Events.EventEmitter);
 
 export default PuzzleGrid;
