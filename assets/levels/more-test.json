@@ -1,0 +1,12 @@
+{
+	"elements": [
+		{ "type": "heart", "xn": 0, "yn": 0, "direction": 0 },
+		{ "type": "heart", "xn": 1, "yn": 0, "direction": 0 },
+		{ "type": "heart", "xn": 2, "yn": 0, "direction": 0 },
+		{ "type": "heart", "xn": 3, "yn": 0, "direction": 0 },
+		{ "type": "heart", "xn": 4, "yn": 0, "direction": 0 },
+		{ "type": "heart", "xn": 5, "yn": 0, "direction": 0 },
+		{ "type": "heart", "xn": 6, "yn": 0, "direction": 0 },
+		{ "type": "heart", "xn": 7, "yn": 0, "direction": 0 }
+	]
+}
