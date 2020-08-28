@@ -12,22 +12,28 @@ function init({level}){
 function preload() {
 	const level = this.level;
 	const levelFilename = this.cache.json.get('levels-list').levels[level];
-	this.load.json(`level-${level}`, `src/assets/levels/${levelFilename}`);
+	this.load.json(`level-${level}`, `assets/levels/${levelFilename}`);
 }
 
 function create() {
 	const level = this.level;
   const grid = new PuzzleGrid({
     scene: this,
-    x: 100,
-    y: 100,
+    x: 200,
+    y: 200,
     cellSize: 64
   });
   grid.load(this.cache.json.get(`level-${level}`).elements);
   this.add.existing(grid);
+  //Phaser.Display.Bounds.CenterOn(grid, this.cameras.main.width / 2, this.cameras.main.height/2);
   
   const controller = new GridController(grid);
-  controller.on('win', () => this.scene.start('level', {level: level + 1}));
+  this.cameras.main.fadeIn(250, 0, 0, 0)
+
+  controller.on('win', 
+  	() => this.cameras.main.fade(250, 0, 0, 0)
+  );
+  this.cameras.main.once('camerafadeoutcomplete', () => this.scene.start('level', {level: level + 1}));
 }
 
 export default {

@@ -32,11 +32,13 @@ class PuzzleGrid extends Phaser.GameObjects.Container{
 		});
 		this.add(element);
 		element.on("pointerdown", this.onClick);
+		return element;
 	}
-	replaceElement(element, newData){
+	async replaceElement(element, newData){
 		const {xn, yn} = element;
-		element.destroy();
-		this.createElement({xn, yn, ...newData});
+		await element.disappear({duration: 250, destroy: true});
+		const newElement = this.createElement({xn, yn, invisible: true, ...newData});
+		await newElement.appear({duration: 250});
 	}
 	doWhere(criteria, action){
 		return Promise.all(

@@ -30,8 +30,8 @@ class GridController extends Phaser.Events.EventEmitter{
 		}
 	}
 	handleFirstClick(elem){
-		console.log("first click");
 		this.state.selection = elem;
+		elem.smile();
 		this.grid.disableWhere(it => 
 			(it.xn != elem.xn && it.yn != elem.yn) || 
 			it.type != 'heart' || 
@@ -40,14 +40,17 @@ class GridController extends Phaser.Events.EventEmitter{
 	}
 	async handleSelectionClick(elem){
 		if(elem === this.state.selection){
-			//do nothing
+			elem.calm();
 		}else{
-			await this.grid.doWhere(
-				it => isBetween(it, elem, this.state.selection) && it.type == 'heart',
-				it => it.rotate(1, 250)
-			)
-			this.grid.replaceElement(elem, {type: 'flower'});
-			this.grid.replaceElement(this.state.selection, {type: 'flower'});
+			elem.smile();
+			await Promise.all([
+				this.grid.doWhere(
+					it => isBetween(it, elem, this.state.selection) && it.type == 'heart',
+					(it, i) => it.rotate({rotation: 1, duration: 250, delay: i * 100})
+				),
+				this.grid.replaceElement(elem, {type: 'flower'}),
+				this.grid.replaceElement(this.state.selection, {type: 'flower'})
+			]);
 			if(this.grid.checkWin()){
 				return this.emit('win');
 			}

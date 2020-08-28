@@ -3,11 +3,14 @@ import Phaser from "phaser";
 const ALPHA_DISABLED = 0.5;
 
 class PuzzleElement extends Phaser.GameObjects.Sprite{
-	constructor(scene, xn, yn, s, key){
+	constructor({scene, xn, yn, s, key, invisible}){
 		super(scene, 0, 0, key);
 		this.s = s;
 		this.xn = xn;
 		this.yn = yn;
+		if(invisible){
+			this.hide();
+		}
 	}
 	get xn(){
 		return this._xn;	
@@ -36,6 +39,45 @@ class PuzzleElement extends Phaser.GameObjects.Sprite{
 			this.setInteractive();
 		}
 		this.alpha = 1;
+	}
+	hide(){
+		console.log('hide');
+		this.scaleX = 0;
+	}
+	disappear({duration, delay, destroy}){
+		console.log('start disappear');
+		return new Promise((resolve, reject) => {
+			this.scene.tweens.add({
+				targets: this,
+				props: {
+					scaleX: 0
+				},
+				duration,
+				delay,
+				onComplete: () => {
+					console.log('end disappear');
+					destroy && this.destroy();
+					resolve()
+				}
+			});
+		});
+	}
+	appear({duration, delay}){
+		console.log('start appear');
+		return new Promise((resolve, reject) => {
+			this.scene.tweens.add({
+				targets: this,
+				props: {
+					scaleX: 1
+				},
+				duration,
+				delay,
+				onComplete: () => {
+					console.log('end appear');
+					resolve();
+				}
+			});
+		});
 	}
 	static register(key){
 		const Ructor = this;
