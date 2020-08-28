@@ -1,0 +1,8 @@
+{
+	"elements": [
+		{ "type": "heart", "xn": 0, "yn": 0, "direction": 0 },
+		{ "type": "heart", "xn": 2, "yn": 0, "direction": 0 },
+		
+		{"type": "flower", "xn": 1, "yn": 0}
+	]
+}
