@@ -3,6 +3,7 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
+const LevelCompilerPlugin = require('./level-compiler-plugin');
 
 module.exports = {
   mode: 'development',
@@ -30,7 +31,21 @@ module.exports = {
       template: './index.html'
     }),
     new CopyPlugin({
-      patterns: [{ from: './assets', to: './assets'}]
+      patterns: [{
+        from: './assets', 
+        to: './assets',
+        globOptions: {
+          ignore: ['**/levels-list.json', '**/levels/*.json']
+        }
+      }],
+    }),
+    new LevelCompilerPlugin({
+      src: './assets/levels-list.json',
+      dest: './dist/assets/levels.json'
     })
-  ]
+  ],
+  devServer: {
+    contentBase: path.resolve(__dirname, '../dist'),
+    writeToDisk: true
+  }
 };

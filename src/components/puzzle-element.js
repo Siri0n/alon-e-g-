@@ -41,11 +41,9 @@ class PuzzleElement extends Phaser.GameObjects.Sprite{
 		this.alpha = 1;
 	}
 	hide(){
-		console.log('hide');
 		this.scaleX = 0;
 	}
 	disappear({duration, delay, destroy}){
-		console.log('start disappear');
 		return new Promise((resolve, reject) => {
 			this.scene.tweens.add({
 				targets: this,
@@ -55,7 +53,6 @@ class PuzzleElement extends Phaser.GameObjects.Sprite{
 				duration,
 				delay,
 				onComplete: () => {
-					console.log('end disappear');
 					destroy && this.destroy();
 					resolve()
 				}
@@ -63,7 +60,6 @@ class PuzzleElement extends Phaser.GameObjects.Sprite{
 		});
 	}
 	appear({duration, delay}){
-		console.log('start appear');
 		return new Promise((resolve, reject) => {
 			this.scene.tweens.add({
 				targets: this,
@@ -73,7 +69,6 @@ class PuzzleElement extends Phaser.GameObjects.Sprite{
 				duration,
 				delay,
 				onComplete: () => {
-					console.log('end appear');
 					resolve();
 				}
 			});

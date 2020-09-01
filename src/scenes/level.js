@@ -9,12 +9,6 @@ function init({level}){
 	this.level = level;
 }
 
-function preload() {
-	const level = this.level;
-	const levelFilename = this.cache.json.get('levels-list').levels[level];
-	this.load.json(`level-${level}`, `assets/levels/${levelFilename}`);
-}
-
 function create() {
 	const level = this.level;
   const grid = new PuzzleGrid({
@@ -23,9 +17,8 @@ function create() {
     y: 200,
     cellSize: 64
   });
-  grid.load(this.cache.json.get(`level-${level}`).elements);
+  grid.load(this.cache.json.get(`levels`).levels[level].elements);
   this.add.existing(grid);
-  //Phaser.Display.Bounds.CenterOn(grid, this.cameras.main.width / 2, this.cameras.main.height/2);
   
   const controller = new GridController(grid);
   this.cameras.main.fadeIn(250, 0, 0, 0)
@@ -39,6 +32,5 @@ function create() {
 export default {
 	key: 'level',
 	init,
-	preload,
 	create
 }
