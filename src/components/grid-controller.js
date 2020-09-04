@@ -43,6 +43,7 @@ class GridController extends Phaser.Events.EventEmitter{
 			elem.calm();
 		}else{
 			elem.smile();
+			this.grid.showLine(elem, this.state.selection);
 			await Promise.all([
 				this.grid.doWhere(
 					it => isBetween(it, elem, this.state.selection) && it.type == 'heart',

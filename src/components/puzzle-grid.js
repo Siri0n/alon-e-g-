@@ -1,5 +1,6 @@
 import Phaser from "phaser";
 
+const {Vector2} = Phaser.Math;
 const wrapListener = (f, self) => {
 	f = f.bind(self)
 	return function(...args){
@@ -48,10 +49,24 @@ class PuzzleGrid extends Phaser.GameObjects.Container{
 		);
 	}
 	disableWhere(criteria){
-		this.doWhere(criteria, it => it.disable());
+		this.doWhere(criteria, it => it.disable && it.disable());
 	}
 	enableAll(){
-		this.getAll().forEach(it => it.enable());
+		this.getAll().forEach(it => it.enable && it.enable());
+	}
+	showLine(p1, p2){
+		const v1 = new Vector2(p1.x, p1.y);
+		const v2 = new Vector2(p2.x, p2.y);
+		const dv = v2.clone().subtract(v1).setLength(this.s/8);
+		const m1 = v1.clone().add(dv);
+		const m2 = v2.clone().subtract(dv);
+		let rope = this.scene.make.rope({
+			points: [v1, m1, m2, v2],
+			key: 'rope' 
+		});
+		rope.alpha = 0.5;
+		this.add(rope)
+		console.log(rope.enable);
 	}
 	checkWin(){
 		return !this.getAll().some(it => it.type == 'heart');

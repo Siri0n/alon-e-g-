@@ -74,6 +74,9 @@ class PuzzleElement extends Phaser.GameObjects.Sprite{
 			});
 		});
 	}
+	highlight({duration, delay}){
+		
+	}
 	static register(key){
 		const Ructor = this;
 		Phaser.GameObjects.GameObjectCreator.register(key, function(config){
